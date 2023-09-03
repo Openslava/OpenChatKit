@@ -48,21 +48,24 @@ class ChatModel:
     human_id = "<human>"
     bot_id = "<bot>"
 
-    def __init__(self, model_name, cpu, gpu_id, max_memory):
+    def __init__(self, model_name, cpu, gpu_id, use_int8, max_memory):
         if cpu:
             device = torch.device('cpu')
             if use_int8:
                 print(f"Warning: int8 inference is not supported on CPU (use bfp16 instead). Please check:"
                       f"https://huggingface.co/blog/hf-bitsandbytes-integration#cpu-support.")
             self._model = AutoModelForCausalLM.from_pretrained(
-                model_name, torch_dtype=torch.bfloat16, use_auth_token=True)
+                model_name, torch_dtype=torch.bfloat16)
             self._model.to(device)
         else:
             device = torch.device('cuda', gpu_id)   # TODO: allow sending to cpu
 
             # recommended default for devices with > 40 GB VRAM
             # load model onto one device
-            if max_memory is None:
+            if use_int8:
+                self._model = AutoModelForCausalLM.from_pretrained(
+                    model_name, device_map='auto', load_in_8bit=True)
+            elif max_memory is None:
                 self._model = AutoModelForCausalLM.from_pretrained(
                     model_name, torch_dtype=torch.float16, device_map="auto")
                 self._model.to(device)
@@ -120,9 +123,14 @@ class OpenChatKitShell(cmd.Cmd):
     intro = "Welcome to OpenChatKit shell.   Type /help or /? to list commands.\n"
     prompt = ">>> "
 
-    def __init__(self, gpu_id, model_name_or_path, max_tokens, sample, temperature, top_k, retrieval):
+    def __init__(self, gpu_id, model_name_or_path, max_tokens, sample, temperature, top_k, retrieval, max_memory, int8, cpu, do_stream):
         super().__init__()
         self._gpu_id = int(gpu_id)
+        self._cpu = cpu
+        if self._cpu:
+            self._gpu_id = -1
+        else:
+            self._gpu_id = int(gpu_id)
         self._model_name_or_path = model_name_or_path
         self._use_int8 = int8
         self._max_tokens = max_tokens
@@ -138,7 +146,7 @@ class OpenChatKitShell(cmd.Cmd):
             print(f"Loading {self._model_name_or_path} to cpu...")
         else:
             print(f"Loading {self._model_name_or_path} to cuda:{self._gpu_id}...")
-        self._model = ChatModel(self._model_name_or_path, self._cpu, self._gpu_id, self._max_memory)
+        self._model = ChatModel(self._model_name_or_path, self._cpu, self._gpu_id, self._use_int8, self._max_memory)
 
         if self._retrieval:
             print(f"Loading retrieval index...")
@@ -299,16 +307,16 @@ def main():
             max_memory['cpu'] = f"{int(args.cpu_ram)}GiB"
 
     OpenChatKitShell(
-        args.cpu,
         args.gpu_id,
         args.model,
-        args.int8,
         args.max_tokens,
         args.sample,
         args.temperature,
         args.top_k,
         args.retrieval,
         max_memory,
+        args.int8,
+        args.cpu,
         not args.no_stream,
     ).cmdloop()
 
