@@ -40,16 +40,28 @@ if __name__ == '__main__':
     if not os.path.exists(args.save_path):
         os.mkdir(args.save_path)
 
+
+    # * Train with a script * https://huggingface.co/docs/transformers/run_scripts
+    # * https://github.com/huggingface/transformers/tree/main 
+    # * Processing the data * https://huggingface.co/learn/nlp-course/chapter3/2?fw=pt
+    # * Pythia-Chat-Base-7B * https://huggingface.co/togethercomputer/Pythia-Chat-Base-7B/blob/main/README.md
+
     model_path = "./build/model"
     config = AutoConfig.from_pretrained(model_path)
     tokenizer = AutoTokenizer.from_pretrained(model_path)
-    model = AutoModel.from_pretrained(model_path)
+    model = AutoModelForCausalLM.from_pretrained(model_path, torch_dtype=torch.bfloat16)
 
     inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
-    outputs = model(**inputs)
+
+    inputs = tokenizer("<human>: Hello!\n<bot>:", return_tensors='pt').to(model.device)
+    outputs = model.generate(**inputs, max_new_tokens=10, do_sample=True, temperature=0.8)
+    output_str = tokenizer.decode(outputs[0])
+    print(output_str)
+
+    # outputs = model(**inputs)
     last_hidden_states = outputs.last_hidden_state
 
-    output_path    = "./dist"
+    output_path    = "./dist/output"
     tokenizer.save_pretrained(output_path)
     outputs.save_pretrained(output_path)
     output_config = outputs.config

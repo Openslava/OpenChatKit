@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 import argparse
 import torch
@@ -72,6 +74,13 @@ if __name__ == '__main__':
     print(f'saved vanilla_config to `{vanilla_save_path}`')
     configuration.save_pretrained(vanilla_save_path)
 
+    ## https://huggingface.co/docs/transformers/v4.32.1/en/main_classes/tokenizer
+    ## * https://huggingface.co/docs/transformers/v4.32.1/en/fast_tokenizers
+    ## * https://huggingface.co/docs/tokenizers/quicktour
+    #
+    # wget https://s3.amazonaws.com/research.metamind.io/wikitext/wikitext-103-raw-v1.zip
+    # unzip wikitext-103-raw-v1.zip
+    #
     print('create new vanila_tokenizer...')
     from tokenizers import Tokenizer
     from tokenizers.models import BPE
@@ -83,15 +92,11 @@ if __name__ == '__main__':
     vanila_tokenizer.pre_tokenizer = Whitespace()
     files = [f"/mnt/d/repo/openslava/ai-eng/ai_OpenChatKit/build/data/wikitext-103-raw/wiki.{split}.raw" for split in ["test", "train", "valid"]]    
     vanila_tokenizer.train(files, trainer)
-    vanila_tokenizer = GPTNeoXTokenizerFast(tokenizer_object=vanila_tokenizer)
+    vanila_tokenizer.save("./build/vanilla/tokenizer-wiki.json")    
+    #tokenizer = Tokenizer.from_file("data/tokenizer-wiki.json")
 
-    ## https://huggingface.co/docs/tokenizers/quicktour
-    #
-    # wget https://s3.amazonaws.com/research.metamind.io/wikitext/wikitext-103-raw-v1.zip
-    # unzip wikitext-103-raw-v1.zip
-    #
-    # files = [f"/mnt/d/repo/openslava/ai-eng/ai_OpenChatKit/build/data/wikitext-103-raw/wiki.{split}.raw" for split in ["test", "train", "valid"]]
     print('save new vanila_tokenizer...')
-    vanila_tokenizer.save_pretrained(vanilla_save_path)
+    tokenizer = GPTNeoXTokenizerFast(tokenizer_object=vanila_tokenizer)
+    tokenizer.save_pretrained(vanilla_save_path)
 
-
+# END

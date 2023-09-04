@@ -19,27 +19,6 @@ def handler(signum, frame):
 signal.signal(signal.SIGABRT, handler)
 signal.signal(signal.SIGINT, handler)
 
-"""
-config (PretrainedConfig) — The model class to instantiate is selected based on the configuration class:
-BertConfig configuration class: TFBertLMHeadModel (BERT model)
-CTRLConfig configuration class: TFCTRLLMHeadModel (CTRL model)
-CamembertConfig configuration class: TFCamembertForCausalLM (CamemBERT model)
-GPT2Config configuration class: TFGPT2LMHeadModel (OpenAI GPT-2 model)
-GPTJConfig configuration class: TFGPTJForCausalLM (GPT-J model)
-OPTConfig configuration class: TFOPTForCausalLM (OPT model)
-OpenAIGPTConfig configuration class: TFOpenAIGPTLMHeadModel (OpenAI GPT model)
-RemBertConfig configuration class: TFRemBertForCausalLM (RemBERT model)
-RoFormerConfig configuration class: TFRoFormerForCausalLM (RoFormer model)
-RobertaConfig configuration class: TFRobertaForCausalLM (RoBERTa model)
-RobertaPreLayerNormConfig configuration class: TFRobertaPreLayerNormForCausalLM (RoBERTa-PreLayerNorm model)
-TransfoXLConfig configuration class: TFTransfoXLLMHeadModel (Transformer-XL model)
-XGLMConfig configuration class: TFXGLMForCausalLM (XGLM model)
-XLMConfig configuration class: TFXLMWithLMHeadModel (XLM model)
-XLMRobertaConfig configuration class: TFXLMRobertaForCausalLM (XLM-RoBERTa model)
-XLNetConfig configuration class: TFXLNetLMHeadModel (XLNet model)
-"""
-
-
 def create_emtpy_model(model_path):
 
     import torch
