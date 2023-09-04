@@ -66,4 +66,6 @@ if __name__ == '__main__':
     outputs.save_pretrained(output_path)
     output_config = outputs.config
     output_config.save_pretrained(output_path)
-
+    
+    # vocabulary = tokenizer.get_vocab().keys()
+    # model.resize_token_embeddings(len(tokenizer))

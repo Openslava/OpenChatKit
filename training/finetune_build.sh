@@ -7,14 +7,14 @@ export MODEL_NAME=terminus
 
 export SHOW_DATA=0
 
-BASE_MODEL="${DIR}/../build/"
+BASE_MODEL="${DIR}/../build/model/"
 
 TOTAL_STEPS=${FINETUNE_TOTAL_STEPS:-20000}
 CHECKPOINT_STEPS=${FINETUNE_CHECKPOINT_STEPS:-100}
 CHECKPOINT_PATH=${FINETUNE_CHECKPOINT_PATH:-"${DIR}/../model_ckpts/${MODEL_NAME}"}
 
 DATASETS="\
-${DIR}/../data/OIG/files/unified_ni.jsonl:0.2,\
+${DIR}/../data/OIG/files/unified_basic.jsonl:0.2,\
 "
 #${DIR}/../data/OIG/files/unified_p3.jsonl:0.5,\
 #${DIR}/../data/OIG/files/unified_flan.jsonl:0.2,\
@@ -67,6 +67,6 @@ ARGS="--model-name ${BASE_MODEL} \
 
 
 (trap 'kill 0' SIGINT; \
-python ${DIR}/dist_clm_train.py $(echo ${ARGS}) --cpu --rank 0 \
+python ${DIR}/dist_clm_train.py $(echo ${ARGS}) --cuda-id 0 --rank 0 \
     & \
 wait)
