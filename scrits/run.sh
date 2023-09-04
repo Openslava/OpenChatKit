@@ -16,6 +16,7 @@
 # conda install mamba -n base -c conda-forge
 ## reload of shelll required
 # mamba env create -f environment.yml
+# mamba env update -f environment.yml
 
 # conda activate OpenChatKitVB
 ##------
@@ -26,6 +27,9 @@
 
 conda activate OpenChatKitVB
 python inference/bot.py --model togethercomputer/Pythia-Chat-Base-7B --cpu
+
+# python inference/bot.py --model ./build --cpu
+
 
 
 

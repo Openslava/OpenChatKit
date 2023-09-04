@@ -40,7 +40,7 @@ XLNetConfig configuration class: TFXLNetLMHeadModel (XLNet model)
 """
 
 
-def create_emtpy_model(config):
+def create_emtpy_model(model_path):
 
     import torch
     import torch.nn as nn
@@ -53,7 +53,7 @@ def create_emtpy_model(config):
     # 1. disable init for faster initialization
     # 2. avoid tie token embeddings with lm_head, as we train them separately.
     with no_init_weights(_enable=True):
-        model = AutoModelForCausalLM(config).eval()
+        model = AutoModelForCausalLM.from_pretrained(model_path).eval()
 
     nn.Linear.reset_parameters = _reset_parameters_linear
 
@@ -158,48 +158,30 @@ if __name__ == '__main__':
     if not os.path.exists(args.save_path):
         os.mkdir(args.save_path)
 
-    from transformers import GPTNeoXConfig, GPTNeoXModel
+    vanilla_save_path = "./build/vanilla"
 
-    print('creating new config...')
-    config = GPTNeoXConfig()
-    config.vocab_size = 1000
-    config.layer_norm_eps = 1e-03
-    config.intermediate_size = 1000
-    config.rotary_emb_base = 1000
-    config.hidden_size = 1000
-    config.num_attention_heads = 10
-    # config_attib = vars(config)
-    # json_str = json.dumps(config_attib)
-    # print(json_str)
-    print(f'saving new config to `{args.save_path}`')
-    config.save_pretrained(args.save_path)
-
-    # attributes = dir(config)
-    print('creating new model...')
-    model = GPTNeoXModel(config)
-    # load config
+    save_path = "./build/model"
     print('creating empty model...')
-    configuration = model.config
-    print(f'saving new model  to `{args.save_path}`')
-    model.save_pretrained(args.save_path)
-
-    # config = AutoConfig.from_pretrained(args.config_name)
-    print('loading tokenizer...')
-    # tokenizer = AutoTokenizer.from_pretrained(args.config_name)
-    print('loaded tokenizer.')
-    print('creating empty model...')
-    # model = create_emtpy_model(config)
+    model = create_emtpy_model(vanilla_save_path)
     # if args.fp16:
-    #    model = model.half()
-    print('loading model ckpt...')
-    # load_decentralized_checkpoint(
-    #    model, args.ckpt_path, n_stages=args.n_stages, n_layer_per_stage=args.n_layer_per_stage,
-    # )
-    print('loaded model ckpt.')
+    #   model = model.half()
+    #print('loading model ckpt...')
+    #load_decentralized_checkpoint(
+    #   model, args.ckpt_path, n_stages=args.n_stages, n_layer_per_stage=args.n_layer_per_stage,
+    #)
+    #print('loaded model ckpt.')
     
-    print(f'saving model  to `{args.save_path}`')
-    model.save_pretrained(args.save_path)
+    print(f'saving model  to `{save_path}`')
+    model.save_pretrained(save_path)
 
-    print(f'saved configuration to `{args.save_path}`')
-    configuration.save_pretrained(args.save_path)
-    # tokenizer.save_pretrained(args.save_path)
+    print('creating config from model...')
+    configuration = model.config
+    print(f'saving config  to `{save_path}`')
+    configuration.save_pretrained(save_path)
+
+    tokenizer = AutoTokenizer.from_pretrained(vanilla_save_path)
+    tokenizer.save_pretrained(save_path)
+
+
+
+

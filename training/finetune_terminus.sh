@@ -10,7 +10,7 @@ export MODEL_NAME=terminus
 
 export SHOW_DATA=0
 
-BASE_MODEL="${DIR}/../pretrained/terminus/base10"
+BASE_MODEL="${DIR}/../build"
 
 TOTAL_STEPS=${FINETUNE_TOTAL_STEPS:-10}
 CHECKPOINT_STEPS=${FINETUNE_CHECKPOINT_STEPS:-10}

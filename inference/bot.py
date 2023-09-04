@@ -92,7 +92,8 @@ class ChatModel:
                     offload_state_dict=True,
                     torch_dtype=torch.float16
                 )
-            self._tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+        self._tokenizer = AutoTokenizer.from_pretrained(model_name)
 
 
     def do_inference(self, prompt, max_new_tokens, do_sample, temperature, top_k, stream_callback=None):

@@ -11,7 +11,7 @@ dependencies:
   - fastparquet=0.5.0
   - nccl=2.18.3.1
   - pip=23.2
-  - pyarrow=13.0.0
+  #- pyarrow=13.0.0
   - python=3.10.9
   - python-snappy=0.6.1
   - pytorch=2.0.1
@@ -19,6 +19,7 @@ dependencies:
   - snappy=1.1.9
   - torchaudio=2.0.2
   - torchvision=0.15.2
+  - sentencepiece
   - pip:
       - accelerate==0.21.0
       - boto3
