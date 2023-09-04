@@ -1,4 +1,16 @@
 
+when using WSL
+
+```
+Create /etc/wsl.conf with the following:
+
+[automount]
+enabled  = true
+root     = /mnt/
+options  = "metadata,umask=22,fmask=11"
+```
+
+
 
 
 * https://huggingface.co/welcome

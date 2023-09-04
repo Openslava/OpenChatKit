@@ -54,8 +54,7 @@ class ChatModel:
             if use_int8:
                 print(f"Warning: int8 inference is not supported on CPU (use bfp16 instead). Please check:"
                       f"https://huggingface.co/blog/hf-bitsandbytes-integration#cpu-support.")
-            self._model = AutoModelForCausalLM.from_pretrained(
-                model_name, torch_dtype=torch.bfloat16)
+            self._model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.bfloat16)
             self._model.to(device)
         else:
             device = torch.device('cuda', gpu_id)   # TODO: allow sending to cpu
