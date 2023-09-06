@@ -14,7 +14,7 @@ CHECKPOINT_STEPS=${FINETUNE_CHECKPOINT_STEPS:-100}
 CHECKPOINT_PATH=${FINETUNE_CHECKPOINT_PATH:-"${DIR}/../model_ckpts/${MODEL_NAME}"}
 
 DATASETS="\
-${DIR}/../data/OIG/files/unified_basic.jsonl:0.2,\
+${DIR}/../data/OIG/files/unified_basic.jsonl:0.2\
 "
 #${DIR}/../data/OIG/files/unified_p3.jsonl:0.5,\
 #${DIR}/../data/OIG/files/unified_flan.jsonl:0.2,\
@@ -67,6 +67,23 @@ ARGS="--model-name ${BASE_MODEL} \
 
 
 (trap 'kill 0' SIGINT; \
-python ${DIR}/dist_clm_train.py $(echo ${ARGS}) --cuda-id 0 --rank 0 \
+python ${DIR}/dist_clm_train.py $(echo ${ARGS}) --use-cuda NO_CUDA \
     & \
 wait)
+
+## https://huggingface.co/docs/transformers/perf_train_cpu
+# python run_qa.py \
+# --model_name_or_path bert-base-uncased \
+# --dataset_name squad \
+# --do_train \
+# --do_eval \
+# --per_device_train_batch_size 12 \
+# --learning_rate 3e-5 \
+# --num_train_epochs 2 \
+# --max_seq_length 384 \
+# --doc_stride 128 \
+# --output_dir /tmp/debug_squad/ \
+# --use_ipex \
+# --bf16 --no_cuda
+
+

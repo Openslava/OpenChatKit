@@ -6,7 +6,7 @@ channels:
   - defaults
 dependencies:
   - cudatoolkit=11.8.0
-  - cupy=12.1.0
+  - cupy=12.2.0
   - faiss-gpu=1.7.2
   - fastparquet=0.5.0
   - nccl=2.18.3.1

@@ -388,11 +388,11 @@ def main():
     random.seed(args.seed)
     np.random.seed(args.seed)
     
-    if args.use_cuda:
-        assert (torch.cuda.is_available())
-        device = torch.device('cuda', args.cuda_id)
-    else:
-        device = torch.device('cpu')
+    # if args.use_cuda:
+    #     assert (torch.cuda.is_available())
+    #    device = torch.device('cuda', args.cuda_id)
+    #else:
+    device = torch.device('cpu')
         
     init_communicators(args)
     

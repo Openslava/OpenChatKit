@@ -67,5 +67,18 @@ if __name__ == '__main__':
     output_config = outputs.config
     output_config.save_pretrained(output_path)
     
+    from torch.utils.data import DataLoader
+
+    def tokenize_function(examples):
+        return tokenizer(examples["text"], padding="max_length", truncation=True)
+
+    tokenized_datasets = dataset.map(tokenize_function, batched=True)
+
+
+    train_dataloader = DataLoader(small_train_dataset, shuffle=True, batch_size=8)
+
+
     # vocabulary = tokenizer.get_vocab().keys()
     # model.resize_token_embeddings(len(tokenizer))
+
+
