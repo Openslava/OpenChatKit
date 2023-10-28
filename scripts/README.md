@@ -9,6 +9,14 @@ enabled  = true
 root     = /mnt/
 options  = "metadata,umask=22,fmask=11"
 ```
+```bash
+# git user name
+ git config --global user.name "Viliam Batka"
+
+ # git email
+ git config --global user.email "viliam@batka.name"
+```
+
 
 install prerequisites on ubuntu 
 
@@ -49,10 +57,6 @@ python ./scripts/02_vanilla_to_model.py
 python ./scripts/03_training.py
 
 ```
-
-
-
-
 
 * https://huggingface.co/welcome
 
