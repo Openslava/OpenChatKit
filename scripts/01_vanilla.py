@@ -90,7 +90,7 @@ if __name__ == '__main__':
     vanila_tokenizer = Tokenizer(BPE(unk_token="[UNK]"))
     trainer = BpeTrainer(special_tokens=["[UNK]", "[CLS]", "[SEP]", "[PAD]", "[MASK]"])
     vanila_tokenizer.pre_tokenizer = Whitespace()
-    files = [f"/mnt/d/repo/openslava/ai-eng/ai_OpenChatKit/build/data/wikitext-103-raw/wiki.{split}.raw" for split in ["test", "train", "valid"]]    
+    files = [f"./build/wikitext-103-raw/wiki.{split}.raw" for split in ["test", "train", "valid"]] 
     vanila_tokenizer.train(files, trainer)
     vanila_tokenizer.save("./build/vanilla/tokenizer-wiki.json")    
     #tokenizer = Tokenizer.from_file("data/tokenizer-wiki.json")

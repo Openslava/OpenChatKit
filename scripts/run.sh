@@ -108,6 +108,9 @@ python inference/bot.py --model togethercomputer/Pythia-Chat-Base-7B --cpu
 # sudo apt-get upgrade
 # sudo apt install mc
 
+# 
+sudo apt install build-essential
+
 
 ## CUDA 12.2
 ##  https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_local
