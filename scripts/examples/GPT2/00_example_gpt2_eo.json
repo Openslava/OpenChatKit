@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Lavender",
+        "origin": "Mediterranean region",
+        "description": "Lavender oil is known for its calming and relaxing properties, and has been used for alleviating insomnia, anxiety, depression, and restlessness.",
+        "usage": "Topical application, Aromatherapy, Ingestion"
+    },
+    {
+        "name": "Peppermint",
+        "origin": "Europe and Asia",
+        "description": "Peppermint oil is used to soothe nausea and other stomach issues, as well as cooling skin and reducing muscle pain.",
+        "usage": "Topical application, Aromatherapy, Ingestion"
+    },
+    {
+        "name": "Tea Tree",
+        "origin": "Australia",
+        "description": "Tea tree oil is known for its antiseptic properties and ability to treat wounds.",
+        "usage": "Topical application"
+    },
+    {
+        "name": "Eucalyptus",
+        "origin": "Australia",
+        "description": "Eucalyptus oil is used for its refreshing and invigorating aroma. It's also known to ease congestion.",
+        "usage": "Aromatherapy, Topical application"
+    },
+    {
+        "name": "Lemon",
+        "origin": "Asia",
+        "description": "Lemon oil is uplifting and cleansing. It's known for its detoxifying, antiseptic and anti-fungal properties.",
+        "usage": "Aromatherapy, Ingestion, Topical application"
+    },
+    {
+        "name": "Chamomile",
+        "origin": "Europe and Asia",
+        "description": "Chamomile oil is calming, and promotes sleep and relaxation.",
+        "usage": "Aromatherapy, Topical application"
+    },
+    {
+        "name": "Frankincense",
+        "origin": "Middle East",
+        "description": "Frankincense oil is used for meditation and promoting calmness. It has rejuvenating and healing properties.",
+        "usage": "Aromatherapy, Topical application"
+    },
+    {
+        "name": "Rose",
+        "origin": "Asia",
+        "description": "Rose oil promotes emotional well-being and has skincare benefits.",
+        "usage": "Aromatherapy, Topical application"
+    },
+    {
+        "name": "Sandalwood",
+        "origin": "India",
+        "description": "Sandalwood oil is calming and helps in meditation. It also has skin benefits.",
+        "usage": "Aromatherapy, Topical application"
+    },
+    {
+        "name": "Jasmine",
+        "origin": "Himalayas",
+        "description": "Jasmine oil has a romantic and uplifting scent. It's used for improving mood and promoting relaxation.",
+        "usage": "Aromatherapy, Topical application"
+    }
+]

@@ -1,0 +1,4 @@
+[
+    {"text": "I love machine learning.", "label": "positive"},
+    {"text": "This is too difficult for me.", "label": "negative"}
+]

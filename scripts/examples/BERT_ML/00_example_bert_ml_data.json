@@ -1,0 +1,12 @@
+[
+    {
+    "context": "BERT je model vyvinutý spoločnosťou Google pre spracovanie prirodzeného jazyka.",
+    "question": "Kto vyvinul model BERT?",
+    "answer": "Google"
+    },
+    {
+    "context": "BERT is a model developed by Google for natural language processing.",
+    "question": "Who developed the BERT model?",
+    "answer": "Google"
+    }
+]
